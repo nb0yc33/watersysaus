@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Treament Australia Government</title>
+    <link rel="stylesheet" href="css/gov.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="logo-img">
+            <img src="logo.png" alt="">
+        </div>
+        <div class="nav-menu">
+
+        </div>
+    </nav>
+
+    <div class="search-box">
+        <a href="#"><img class="search-img" src="search.png" alt=""></a>
+        <input type="text" name="search" id="search">
+    </div>
+    <div class="analytics-container">
+        <div class="map" id="mapid"></div>
+        <div class="table">
+            <table class="table-contents">
+                <tr class="headings row">
+                    <th>Actions</th>
+                    <th id="heading">CheckId</th>
+                    <th id="heading">UserId</th>
+                    <th id="heading">Latitude</th>
+                    <th id="heading">Longitude</th>
+                    <th id="heading">Ranking</th>
+                    <th id="heading">Equipment</th>
+                    <th id="heading">RecentTest</th>
+                    <th id="heading">LastTest</th>
+                    <th id="heading">Request</th>
+                    <th id="heading">RequestDate</th>
+                    <th id="heading">WaterType</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let mymap = L.map('mapid').setView([-27.47, 153.02], 14);
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1Ijoicy1uYXJsbyIsImEiOiJja2Vod3F3Z3UwZXN6MnJvaHNneWhyNWRoIn0.Bix4XksIzlP276mM3_Bd0g'
+        }).addTo(mymap);
+
+        // Adding data to the table 
+
+        let data = [];
+
+        function Location(date, latitude, longitude, description) {
+            this.data = date;
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.description = description;
+        }
+
+
+
+        function render() {
+
+        }
+    </script>
+</body>
+
+</html>

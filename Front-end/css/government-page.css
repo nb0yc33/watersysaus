@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flexbox;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.page {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(0deg, rgba(229,242,240,1) 38%, rgba(184,255,240,1) 72%, rgba(0,255,201,1) 100%);
+    padding: 50px;
+    border-radius: 30px;
+    opacity: 0.7;
+}
+
+.log-in-form {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.log-in-id, .log-in-password, .submit-button {
+    margin-top: 20px;
+}
+
+#id, #password {
+    border-radius: 30px;
+    border: none;
+    height: 30px;
+    width: auto;
+    border: 1px solid gray;
+    padding: 1px;
+}
+
+.submit-button {
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #41D49B;
+    border: 1px solid #25AFB3;
+}
+#forgot {
+    margin-top: 10px;
+    font-size: 10px;
+}
+
+.submit-button:hover {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+.waves{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.waves-bottom {
+    height: 200px;
+    width: 100%;
+}
