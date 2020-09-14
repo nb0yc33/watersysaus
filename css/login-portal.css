@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nav-bar1 {
+    width: 100%;
+    height: 4vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding-bottom: 5vh;
+    padding-top: 2vh;
+}
+
+.nav-bar2 {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.menu {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.page {
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 400px;
+    background: linear-gradient(0deg, rgba(229,242,240,1) 38%, rgba(184,255,240,1) 72%, rgba(0,255,201,1) 100%);
+    padding: 50px;
+    border-radius: 30px;
+    opacity: 0.7;
+}
+
+.messages {
+    width: 30%;
+    text-align: left;
+}
+
+.log-in-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.log-in-id, .log-in-password, .submit-button {
+    margin-top: 20px;
+}
+
+#id, #password {
+    border-radius: 30px;
+    border: none;
+    height: 30px;
+    width: auto;
+    border: 1px solid gray;
+    padding: 1px;
+}
+
+#forgot {
+    margin-top: 10px;
+    font-size: 10px;
+}
+
+.waves{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.waves-bottom {
+    height: 200px;
+    width: 100%;
+}
+
+.error {
+    width: 90%; 
+    margin: 0px auto; 
+    padding: 5px; 
+    border: 1px solid #a94442; 
+    font-size: 12px;
+    color: #a94442; 
+    background: #f2dede; 
+    border-radius: 3px; 
+    text-align: center;
+}
+
+.success {
+    width: 80%; 
+    height: 4em;
+    margin: 0px auto; 
+    padding: 5px; 
+    border: 1px solid green; 
+    font-size: 12px;
+    color: green; 
+    background: #f2dede; 
+    border-radius: 3px; 
+    text-align: center;
+}
+
+a.menu_button {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
+    padding: 12px 24px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #0162c8, #55e7fc);
+    color: white;
+    overflow: hidden;
+}
+
+a.menu_button:hover {
+    text-decoration: none;
+    color: white;
+}
+
+span {
+    position: absolute;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: animateButtons 1s linear infinite;
+}
+
+@keyframes animateButtons {
+
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0.5;
+    }
+
+    100% {
+        width: 500px;
+        height: 500px;
+        opacity: 0;
+    }
+
+
+}
