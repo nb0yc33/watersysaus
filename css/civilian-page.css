@@ -6,7 +6,7 @@
 
 .nav-bar1 {
     width: 100%;
-    height: 4vh;
+    height: 10vh;
     position: relative;
     top: 0;
     left: 0;
@@ -121,7 +121,7 @@ section .wave.wave4 {
     bottom: 12px;
 }
 
-a.menu_button {
+a.flag, a.search, a.report, a.menu_button {
     position: relative;
     display: inline-block;
     margin: 10px 0;
@@ -142,6 +142,42 @@ span {
     pointer-events: none;
     border-radius: 50%;
     animation: animateButtons 1s linear infinite;
+}
+
+.flag-popup {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+    align-items: center;
+    z-index: 1500;
+}
+
+.flag-contents {
+	height: 400px;
+	width: 500px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+.close-flag {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+	cursor: pointer;
+}
+
+.close-flag:hover {
+    color: #666;
 }
 
 @keyframes animateButtons {

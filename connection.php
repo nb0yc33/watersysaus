@@ -1,14 +1,32 @@
-<?php      
+<?php    
+
+//start session
 session_start();
 
+//initialise username, email and errors array
 $username = "";
 $email    = "";
 $errors = array(); 
 
+//connect to DB
 $db = mysqli_connect('localhost', 'gents', 'truegents1', 'water_quality');
 
-if (isset($_POST['create'])) {
+//public chooses to flag water body for quality check by government
+if (isset($_POST['submitflag'])){
+  $latitude = mysqli_real_escape_string($db, $_POST['latitude']);
+  $longitude = mysqli_real_escape_string($db, $_POST['longitude']);
+  $description = mysqli_real_escape_string($db, $_POST['description']);
 
+  $flag_query = "INSERT INTO Sites (Latitude, Longitude, Description) 
+            VALUES('$latitude', '$longitude', '$description')";
+  mysqli_query($db, $flag_query);
+
+  header('location: index.php');
+
+}
+
+//government user attempts to create account
+if (isset($_POST['create'])) {
   $username = mysqli_real_escape_string($db, $_POST['username']);
   $branch = mysqli_real_escape_string($db, $_POST['branch']);
   $role = mysqli_real_escape_string($db, $_POST['role']);
@@ -31,7 +49,8 @@ if (isset($_POST['create'])) {
   $user_check_query = "SELECT * FROM Users WHERE Username='$username' LIMIT 1";
   $result = mysqli_query($db, $user_check_query);
   $user = mysqli_fetch_assoc($result);
-  
+
+  //check that username is unique
   if ($user) { 
     if ($user['Username'] === $username) {
       array_push($errors, "Username already exists");
@@ -39,17 +58,22 @@ if (isset($_POST['create'])) {
   }
 
   if (count($errors) == 0) {
+
+    //encrypt user password before DB insertion
   	$password = md5($password_1);
 
   	$query = "INSERT INTO Users (Username, Password, Branch, Role, Suburb) 
   			  VALUES('$username', '$password', '$branch', '$role', '$suburb')";
-  	mysqli_query($db, $query);
+    mysqli_query($db, $query);
+    
+    //establish username in session
     $_SESSION['username'] = $username;
     $_SESSION['confirmation'] = "You created an account successfully";
     header('location: login-portal.php');
   }
 }
 
+//login authentication process
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
@@ -61,6 +85,7 @@ if (isset($_POST['login'])) {
         array_push($errors, "Password is required");
     }
   
+    //only able to log in if no errors arise
     if (count($errors) == 0) {
         $password = md5($password);
         $query = "SELECT * FROM Users WHERE Username='$username' AND Password='$password'";
@@ -68,8 +93,10 @@ if (isset($_POST['login'])) {
         if (mysqli_num_rows($results) == 1) {
           $_SESSION['username'] = $username;
           $_SESSION['success'] = "You are now logged in";
+
+          //redirect to user's dashboard
           header('location: account.php');
-        }else {
+        } else {
             array_push($errors, "Wrong username/password combination");
         }
     }
