@@ -12,58 +12,23 @@
      	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
          crossorigin=""></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <?php include("header.php"); ?>       
     </head>
-    <body>    
-
-    <div class="Vision">
-       
+    <body>  
+    <button class="open-nav" onclick="openNav()">&#9776; > </button> 
+    <div class="sidenav">
+        <div class="button-box">
+            <input class="form-control" type="text" placeholder="Search location" aria-label="Search" id="search">
+            <a class="btn btn-primary" href="#" role="button" id="flag"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+            <path fill-rule="evenodd" d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+            </svg> Flag </a>
+        </div>
     </div>
 
-        <div class="control">
-            <div class="controls">
-                <a href="#" id="flag" class="flag"><svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-file-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"/>
-                </svg></a>
-                <a href="#" id="search" class="search"><svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                </svg></a>
-                <a href="#" id="report" class="report"><svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                </svg></a>
-                
-                
-            </div>
-            <div class="flag-popup">
-	            <div class="flag-contents">
-                    <div class="close-flag">+</div>
-		                <form name="submitflag" action="connection.php" method="post">
-                            <h3>Water Test Form</h3>
-                            <h4>Flag a location you'd like us to test!</h4><br>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter longitude">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="description" name="description" placeholder="Enter description">
-                            </div>
-                            <button type="submit" class="btn btn-primary" name="submitflag">Flag</button>
-		                </form>
-                </div>
-            </div>
-            <div class="map" id="map_id"></div>
-        </div>
-    
-    <section>
-        <div class="wave wave1"></div>
-        <div class="wave wave2" ></div>
-        <div class="wave wave3"></div>
-        <div class="wave wave4"></div>
-    </section>
+    <div class="main">
+        <div class="map" id="map_id"></div>
+    </div>
 
     </body>
     <script>
@@ -95,13 +60,17 @@
             })
         })
 
-        document.getElementById('flag').addEventListener("click", function() {
-	        document.querySelector('.flag-popup').style.display = "flex";
-        });
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
 
-        document.querySelector('.close-flag').addEventListener("click", function() {
-	        document.querySelector('.flag-popup').style.display = "none";
-        });
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }  
+
     </script>
 </html>
 
