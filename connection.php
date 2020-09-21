@@ -12,17 +12,33 @@ $errors = array();
 $db = mysqli_connect('localhost', 'gents', 'truegents1', 'water_quality');
 
 //public chooses to flag water body for quality check by government
-if (isset($_POST['submitflag'])){
+if (isset($_POST['submitflag'])) {
   $latitude = mysqli_real_escape_string($db, $_POST['latitude']);
   $longitude = mysqli_real_escape_string($db, $_POST['longitude']);
   $description = mysqli_real_escape_string($db, $_POST['description']);
 
-  $flag_query = "INSERT INTO Sites (Latitude, Longitude, Description) 
+
+  //ensure that fields are not left empty
+  if (empty($latitude)) { 
+    array_push($errors, "Latitude is required"); 
+  }
+  if (empty($longitude)) { 
+    array_push($errors, "Longitude is required");
+   }
+  if (empty($description)) { 
+    array_push($errors, "Description of flagging is required"); 
+  }
+  
+  if (count($errors) == 0) {
+
+    $flag_query = "INSERT INTO Sites (Latitude, Longitude, Description) 
             VALUES('$latitude', '$longitude', '$description')";
-  mysqli_query($db, $flag_query);
+    mysqli_query($db, $flag_query);
 
-  header('location: index.php');
-
+    $_SESSION['flag-success'] = "You have flagged a location successfully";
+    
+    header('location: index.php');
+  }
 }
 
 //government user attempts to create account
@@ -35,15 +51,29 @@ if (isset($_POST['create'])) {
   $password_2 = mysqli_real_escape_string($db, $_POST['password-2']);
 
 
-  if (empty($username)) { array_push($errors, "Username is required"); }
-  if (empty($branch)) { array_push($errors, "Branch is required"); }
-  if (empty($role)) { array_push($errors, "Role is required"); }
-  if (empty($suburb)) { array_push($errors, "Suburb/Region is required"); }
-  if (empty($password_1)) { array_push($errors, "Password is required"); }
-  if (empty($password_2)) { array_push($errors, "Password confirmation is required"); }  
-
+  //ensure that fields are not left empty
+  if (empty($username)) { 
+    array_push($errors, "Username is required"); 
+  }
+  if (empty($branch)) { 
+    array_push($errors, "Branch is required");
+   }
+  if (empty($role)) { 
+    array_push($errors, "Role is required"); 
+  }
+  if (empty($suburb)) { 
+    array_push($errors, "Suburb/Region is required");
+  }
+  if (empty($password_1)) { 
+    array_push($errors, "Password is required"); 
+  }
+  if (empty($password_2)) {
+     array_push($errors, "Password confirmation is required"); 
+  }  
+  
+  //ensure passwords match
   if ($password_1 != $password_2) {
-	array_push($errors, "The two passwords do not match");
+	  array_push($errors, "The two passwords do not match");
   }
 
   $user_check_query = "SELECT * FROM Users WHERE Username='$username' LIMIT 1";
@@ -59,7 +89,7 @@ if (isset($_POST['create'])) {
 
   if (count($errors) == 0) {
 
-    //encrypt user password before DB insertion
+    //encrypt user password before insertion into DB
   	$password = md5($password_1);
 
   	$query = "INSERT INTO Users (Username, Password, Branch, Role, Suburb) 

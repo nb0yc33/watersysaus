@@ -10,5 +10,6 @@
         <div class="menu">
             <a href="login-portal.php" class="menu_button" style="text-decoration:none">Government Portal</a>
         </div>
-    </div>
+    </div> 
 </html>
+
