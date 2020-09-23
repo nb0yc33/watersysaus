@@ -12,10 +12,10 @@ $errors = array();
 $db = mysqli_connect('localhost', 'gents', 'truegents1', 'water_quality');
 
 //public chooses to flag water body for quality check by government
-if (isset($_POST['submit-flag'])) {
+if (isset($_POST['submitflag'])) {
   $latitude = mysqli_real_escape_string($db, $_POST['latitude']);
   $longitude = mysqli_real_escape_string($db, $_POST['longitude']);
-  $description = mysqli_real_escape_string($db, $_POST['flag-description']);
+  $description = mysqli_real_escape_string($db, $_POST['description']);
 
 
   //ensure that fields are not left empty
@@ -36,27 +36,6 @@ if (isset($_POST['submit-flag'])) {
     mysqli_query($db, $flag_query);
 
     $_SESSION['flag-success'] = "You have flagged a location successfully";
-    
-    header('location: index.php');
-  }
-}
-
-//public chooses to report issue
-if (isset($_POST['submit-issue'])) {
-  $description = mysqli_real_escape_string($db, $_POST['report-description']);
-
-  //ensure that field is not left empty
-  if (empty($description)) { 
-    array_push($errors, "Description of issue is required"); 
-  }
-  
-  if (count($errors) == 0) {
-
-    $issue_query = "INSERT INTO Issues (IssueDesc) 
-            VALUES('$description')";
-    mysqli_query($db, $issue_query);
-
-    $_SESSION['issue-success'] = "You have reported an issue successfully";
     
     header('location: index.php');
   }

@@ -27,6 +27,14 @@
     transition: 1s ease;
     position: relative;
 }
+
+.messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
   
 .map {
     width: 70%;
@@ -133,6 +141,30 @@ h5 {
     color: white;
     font-size: 14px;
     transform: rotate(135deg);
+}
+
+.error {
+    width: 90%; 
+    margin: 0px auto; 
+    padding: 1%; 
+    border: 1px solid #a94442; 
+    font-size: 10px;
+    color: #a94442; 
+    background: #f2dede; 
+    border-radius: 3px; 
+    text-align: center;
+}
+
+.success {
+    width: 80%; 
+    margin: 0px auto; 
+    padding: 1%; 
+    border: 1px solid green; 
+    font-size: 10px;
+    color: green; 
+    background: #f2dede; 
+    border-radius: 3px; 
+    text-align: center;
 }
 
 @keyframes animateButtons {
