@@ -12,22 +12,52 @@
      	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
          crossorigin=""></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>  
-    <button class="open-nav" onclick="openNav()">&#9776; > </button> 
-    <div class="sidenav">
-        <div class="button-box">
-            <input class="form-control" type="text" placeholder="Search location" aria-label="Search" id="search">
-            <a class="btn btn-primary" href="#" role="button" id="flag"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
-            <path fill-rule="evenodd" d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
-            </svg> Flag </a>
-        </div>
-    </div>
 
-    <div class="main">
-        <div class="map" id="map_id"></div>
+    <div class="grid-container">
+        <div class="sidebar">
+            <div class="button-box">
+                <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
+                <input class="form-control" type="text" placeholder="Search location" aria-label="Search" id="search">
+                <h5> Search Radius </h5>
+                <div class="container">
+                    <div class="box">
+                        <div id="value"></div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50"
+                    class="slider" id="slider">
+                </div>
+                <a class="btn btn-primary" href="#" role="button" id="flag"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                <path fill-rule="evenodd" d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+                </svg> Flag site </a>
+                <form id="flag-form">
+                    <div class="form-group">
+                            <input type="text" class="form-control" id="latitude" placeholder="Enter latitude">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="longitude" placeholder="Enter longitude">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="flag-description" placeholder="Enter description">
+                    </div>
+                    <button type="submit" class="btn btn-primary"> Submit flag </button>
+                </form>
+                <a class="btn btn-primary" href="#" role="button" id="report"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                </svg> Report issue </a>
+                <form id="report-form">
+                    <div class="form-group">
+                            <input type="text" class="form-control" id="report-description" placeholder="Enter description">
+                    </div>
+                    <button type="submit" class="btn btn-primary"> Submit issue </button>
+                </form>
+            </div>
+        </div>
+        <div class="map" id="map_id">
     </div>
 
     </body>
@@ -43,35 +73,28 @@
     	}).addTo(mymap);
     </script>
     <script type="text/javascript">
-        const buttons = document.querySelectorAll('a.menu_button');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', function (e) {
-                let x = e.clientX - e.target.offsetLeft;
-                let y = e.clientY - e.target.offsetTop;
+        var slider=document.getElementById("slider");
+        var val=document.getElementById("value");
 
-                let ripples = document.createElement('span');
-                ripples.style.left = x + "px";
-                ripples.style.top = y + "px";
-                this.appendChild(ripples);
-
-                setTimeout(() => {
-                    ripples.remove()
-                }, 1000);
-            })
-        })
-
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
+        val.innerHTML=slider.value;
+        slider.oninput=function(){
+            val.innerHTML=this.value;
         }
 
-
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-        }  
-
     </script>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('#flag').on('click', function(event) {        
+                jQuery('#flag-form').toggle('show');
+            });
+        });
+        jQuery(document).ready(function(){
+            jQuery('#report').on('click', function(event) {        
+                jQuery('#report-form').toggle('show');
+            });
+        });
+    </script>
+
 </html>
 
 

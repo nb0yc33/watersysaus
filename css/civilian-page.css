@@ -2,24 +2,37 @@
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.control-button {
-    border-radius: 100px;
-    width: 50px;
-    height: 50px;
-    border: none;
-    background-color: whitesmoke;
-    box-shadow: 1px 2px gainsboro;
-    outline: none;
-}
-
-.map {
+.grid-container {
     width: 100%;
+    margin: 0 auto;
     height: 100%;
-    border-radius: 20px;
-    border: 5px solid lightblue;
+    display: flex;
+    border: 2px solid rgba(0, 0, 0, .4);
+    transition: 1s ease;
+}
+  
+#logo {
+    margin-top: 0.75em;
+    margin-bottom: 1em;
+    width: 90%;
+}
+
+.sidebar {
+    width: 30%;
+    height: 100%;
+    background-color: lightblue;
+    transition: 1s ease;
+    position: relative;
+}
+  
+.map {
+    width: 70%;
+    height: 100%;
+    background-color: #ccc;
+    transition: 1s ease;
 }
 
 #flag {
@@ -28,6 +41,28 @@
     font-size: 14px;
 }
 
+#report {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 50%;
+    font-size: 14px;
+}
+
+#flag-form {
+    display: none;
+    margin-top: 1em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+#report-form {
+    display: none;
+    margin-top: 1em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
+}
 
 .button-box {
     display: flex;
@@ -36,93 +71,69 @@
     justify-content: center;
 }
 
-span {
-    position: absolute;
-    background: #fff;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    border-radius: 50%;
-    animation: animateButtons 1s linear infinite;
-}
-
-.sidenav {
-    height: 100%; 
-    width: 20vw; 
-    position: fixed; 
-    z-index: 2000; 
-    top: 0; 
-    left: 0;
-    background-color: lightblue; 
-    overflow-x: hidden; 
-    padding-top: 20px;
-    text-align: center;
-}
-
 #search {
     width: 80%;
     margin-left: 0.5vw;
-    margin-bottom: 3vh;
+    margin-bottom: 2vh;
 }
 
-  
-.sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-}
-  
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-  
-.main {
-    margin-left: 20vw;
-    padding: 0px 10px;
-}
-  
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+h5 {
+    margin-top: 1em;
+    padding-bottom: 2em;
 }
 
-.flag-popup {
-	background-color: rgba(0, 0, 0, 0.8);
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	display: none;
-	justify-content: center;
+.slider {
+    width: 100%;
+    height: 0.5vh;
+    -webkit-appearance:none;
+    border-radius: 5px;
+    background-color: lightblue;
+    box-shadow: inset 0 3px 18px rgba(0,0,0,0.6);
+    margin-bottom: 1em;
+}
+
+.slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 3px lightblue,
+                0 0 0 6px white;
+}
+
+.slider:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px lightblue,
+                0 0 0 6px white;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    z-index: 1500;
+    background-color:darkblue;
+    height: 30px;
+    width: 30px;
+    border-radius:  0 50% 50% 50%;
+    transform: rotate(-135deg);
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 22%;
 }
 
-.flag-contents {
-	height: 400px;
-	width: 500px;
-	background-color: white;
-	text-align: center;
-	padding: 20px;
-	position: relative;
-	border-radius: 4px;
+#value {
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    transform: rotate(135deg);
 }
-
-.close-flag {
-	position: absolute;
-	top: 0;
-	right: 10px;
-	font-size: 42px;
-	color: #333;
-	transform: rotate(45deg);
-	cursor: pointer;
-}
-
-.close-flag:hover {
-    color: #666;
-}
-
 
 @keyframes animateButtons {
 
