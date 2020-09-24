@@ -70,6 +70,7 @@
                 }
                 $sql = "SELECT Latitude, Longitude, Ranking, Equipment, RecentTest, LastTest, Request, RequestDate FROM Sites";
                 $result = $conn->query($sql);
+
                 if ($result->num_rows > 0) {
                 // output data of each row
                     while($row = $result->fetch_assoc()) {
@@ -109,7 +110,6 @@
         }).addTo(mymap);
 
         // Adding data to the table 
-
         let data = [];
 
         function Location(date, latitude, longitude, description) {
