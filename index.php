@@ -30,6 +30,11 @@
         </div>
     </div>
 
+    <div class="waves">
+    	<img class="waves-bottom" src="images/waves.png" alt="Waves Graphic">
+    </div>
+
+
     </body>
     <script>
     </script>

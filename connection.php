@@ -120,7 +120,7 @@ if (isset($_POST['create'])) {
     //establish username in session
     $_SESSION['username'] = $username;
     $_SESSION['confirmation'] = "You created an account successfully";
-    header('location: login-portal.php');
+    header('location: create-account.php');
   }
 }
 

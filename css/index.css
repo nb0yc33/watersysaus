@@ -10,6 +10,8 @@
     width: 100%;
     margin: 0 auto;
     height: 100%;
+    position: absolute;
+    z-index: 0;
 }
 
 .main {
@@ -44,7 +46,7 @@
 
 .vision-box {
     width: 60%;
-    height: 20%;
+    height: 15%;
     border: 2px solid lightseagreen;
     background-color: lightgray;
     border-radius: 5px;
@@ -55,6 +57,7 @@
 
 .public {
     border: 1px solid lightseagreen;
+    color: #3498db;
     background: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -62,14 +65,7 @@
     transition: 0.8s;
     position: relative;
     overflow: hidden;
-}
-
-.public {
-    color: #3498db;
-}
-
-.public:hover{
-    color: #fff;
+    z-index: 2;
 }
 
 .public::before{
@@ -79,7 +75,7 @@
     width: 100%;
     height: 0%;
     background: #3498db;
-    z-index: -1;
+    z-index: 1;
     transition: 0.8s;
 }
 
@@ -90,5 +86,25 @@
 
 .public:hover::before {
     height: 180%;
+    position: absolute;
+    z-index: 1;
 }
 
+.waves {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    padding: 0;
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
+}
+
+.waves-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 20%;
+    width: 100%;
+}

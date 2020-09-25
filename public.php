@@ -2,8 +2,8 @@
     <head>  
     	<meta charset="UTF-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<title> Water Systems Australia </title>
-    	<link rel="stylesheet" href="css/civilian-page.css">
+    	<title> Public View </title>
+    	<link rel="stylesheet" href="css/sidebar.css">
     	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
      	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
          crossorigin=""/>
@@ -19,8 +19,10 @@
     <div class="grid-container">
         <div class="sidebar">
             <div class="button-box">
-                <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
-                <input class="form-control" type="text" placeholder="Search location" aria-label="Search" id="search">
+                <a href="index.php">
+                    <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
+                </a>
+                <input class="form-control" type="text" placeholder="Search location" id="search">
                 <h5> Search Radius </h5>
                 <div class="container">
                     <div class="box">
