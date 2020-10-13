@@ -4,6 +4,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<title> Public View </title>
     	<link rel="stylesheet" href="css/sidebar.css">
+
     	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
      	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
          crossorigin=""/>
@@ -11,6 +12,32 @@
     	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
      	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
          crossorigin=""></script>
+
+        <!--Leaflet CDN-->
+    	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+     	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+         crossorigin=""/>
+         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+     	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+         crossorigin=""></script>
+
+        <!-- Load Esri Leaflet from CDN -->
+        <script src="https://unpkg.com/esri-leaflet@2.5.1/dist/esri-leaflet.js"
+        integrity="sha512-q7X96AASUF0hol5Ih7AeZpRF6smJS55lcvy+GLWzJfZN+31/BQ8cgNx2FGF+IQSA4z2jHwB20vml+drmooqzzQ=="
+        crossorigin=""></script>
+
+        <!-- Geocoding Control -->
+        <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+        integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+        crossorigin="">
+        <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
+        integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
+        crossorigin=""></script>
+
+
+
+
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <?php include('connection.php'); ?>
@@ -76,6 +103,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit-issue"> Submit issue </button>
                 </form>
+                <form>
+                    <input type = "button" onclick = "getLocation();" value = "Get Your Location"/>
+                </form>
             </div>
         </div>
         <div class="map" id="map_id">
@@ -83,7 +113,11 @@
 
     </body>
     <script>
-    	let mymap = L.map('map_id').setView([-27.47, 153.02], 14);
+
+        // Written by Seb
+
+        // The default map is set to be a view of all of Australia
+        let map = L.map('map_id').setView([-25.495375, 133.718096], 5);
     	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     	maxZoom: 18,
@@ -91,14 +125,48 @@
     	tileSize: 512,
     	zoomOffset: -1,
     	accessToken: 'pk.eyJ1Ijoicy1uYXJsbyIsImEiOiJja2Vod3F3Z3UwZXN6MnJvaHNneWhyNWRoIn0.Bix4XksIzlP276mM3_Bd0g'
-    	}).addTo(mymap);
+        }).addTo(map);
+   
+        //Search functionality (Seb)
+        var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider(); // search provider
+        L.esri.Geocoding.geosearch({
+        providers: arcgisOnline,
+        }).addTo(map);
 
-        function onMapClick(e) {
-            var marker = new L.marker(e.latlng).addTo(mymap);
-            marker.bindPopup("You've flagged this location").openPopup();
+        // Updates the map to show the users current location. 
+        function showLocation(position) {
+            let lat = position.coords.latitude;
+            let long = position.coords.longitude;
+            
+            map.setView([lat, long], 13);
         }
 
-        mymap.on('click', onMapClick);
+        // Handles errors with geolocation
+        function errorHandler(err) {
+            if(err.code == 1) {
+               alert("Error: Access is denied!");
+            } else if( err.code == 2) {
+               alert("Error: Position is unavailable!");
+            }
+         }
+
+        // The main function which gets the geolocation data
+        function getLocation() {
+            if(navigator.geolocation) {
+                // timeout at 60000 milliseconds (60 seconds)
+                var options = {timeout:60000};
+                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+            } else {
+                alert("Sorry, browser does not support geolocation!");
+            }
+        }
+
+        function onMapClick(e) {
+            var marker = new L.marker(e.latlng).addTo(map);
+            marker.bindPopup("You've flagged this location").openPopup();
+        }
+        map.on('click', onMapClick);
+
     </script>
     <script type="text/javascript">
         var slider=document.getElementById("slider");

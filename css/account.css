@@ -66,3 +66,14 @@
     border: 1px solid #3c763d;
     margin-bottom: 20px;
   }
+
+.table-row:hover {
+  background-color: #B0C4DE;
+}
+
+#action-button {
+  background-color: turquoise;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid black;
+}
