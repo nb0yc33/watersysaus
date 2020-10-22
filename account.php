@@ -65,7 +65,7 @@
         <div class="main">
             <div class="map-2" id="mapid"></div>
             <div class="water-table-gov">
-                <table class="table table-condensed table-dark" id ="data-table">
+                <table class="table table-condensed table-dark table-editable" id ="data-table">
                     <tr>
                         <th scope="col" onclick="sortTable(0)">Actions</th>
                         <th scope="col" onclick="sortTable(1)">CheckID</th>
@@ -95,16 +95,16 @@
                                 $report_id = $row["CheckID"];
                                 echo "<tr class='table-row'>  
                                         <td id= 'button-container'><button id='action-button' onclick='addressQuality($report_id)'>Actions</button></td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["CheckID"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["Latitude"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["Longitude"] . "</td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["TestStatus"] . "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["Ranking"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["Equipment"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["RecentTest"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["LastTest"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["Request"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["RequestDate"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">" . $row["CheckID"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">" . $row["Latitude"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">" . $row["Longitude"] . "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">" . $row["TestStatus"] . "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">". $row["Ranking"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">". $row["Equipment"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">". $row["RecentTest"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">". $row["LastTest"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">". $row["Request"]. "</td>
+                                        <td class="pt-3-half" contenteditable="true" id= " . $row["CheckID"]. ">". $row["RequestDate"]. "</td>
                                     </tr>";
                             }
                             echo "</table>";
@@ -259,6 +259,70 @@
                 }
             }
         }
+
+        //Editable Tables
+        const $tableID = $('table');
+        const $BTN = $('#export-btn');
+        const $EXPORT = $('#export');
+        const newTr = `
+        <tr class="hide">
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        <td class="pt-3-half" contenteditable="true">Example</td>
+        </tr>`;
+        $('.table-add').on('click', 'i', () => {
+        const $clone = $tableID.find('tbody tr').last().clone(true).removeClass('hide table-line');
+        if ($tableID.find('tbody tr').length === 0) {
+        $('tbody').append(newTr);
+        }
+        $tableID.find('table').append($clone);
+        });
+        $tableID.on('click', '.table-remove', function () {
+        $(this).parents('tr').detach();
+        });
+        $tableID.on('click', '.table-up', function () {
+        const $row = $(this).parents('tr');
+        if ($row.index() === 0) {
+        return;
+        }
+        $row.prev().before($row.get(0));
+        });
+        $tableID.on('click', '.table-down', function () {
+        const $row = $(this).parents('tr');
+        $row.next().after($row.get(0));
+        });
+        // A few jQuery helpers for exporting only
+        jQuery.fn.pop = [].pop;
+        jQuery.fn.shift = [].shift;
+        $BTN.on('click', () => {
+        const $rows = $tableID.find('tr:not(:hidden)');
+        const headers = [];
+        const data = [];
+        // Get the headers (add special header logic here)
+        $($rows.shift()).find('th:not(:empty)').each(function () {
+        headers.push($(this).text().toLowerCase());
+        });
+        // Turn all existing rows into a loopable array
+        $rows.each(function () {
+        const $td = $(this).find('td');
+        const h = {};
+        // Use the headers from earlier to name our hash keys
+        headers.forEach((header, i) => {
+            h[header] = $td.eq(i).text();
+        });
+        data.push(h);
+        });
+        // Output the result
+        $EXPORT.text(JSON.stringify(data));
+        });
+Aa
 
 
 
