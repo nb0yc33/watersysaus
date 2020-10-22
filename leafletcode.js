@@ -1,27 +1,21 @@
 
 // Icon variables 
 var redIcon = L.icon({ // red is for test sites not yet tested
-    iconUrl: "images/red-marker.png",
+    iconUrl: "images/Red_Marker_New.png",
     iconSize: [25, 50],
     iconAnchor: [12, 48],
     popupAnchor: [-25, -50],
     });
 
 var orangeIcon = L.icon({ // orange is for pending tests
-    iconUrl: "images/red-marker.png",
-    iconSize: [25, 50],
-    iconAnchor: [12, 48],
-    popupAnchor: [-25, -50],
-    });
-    var redIcon = L.icon({
-    iconUrl: "images/orange-marker.png",
+    iconUrl: "images/Orange_Marker_New.png",
     iconSize: [25, 50],
     iconAnchor: [12, 48],
     popupAnchor: [-25, -50],
     });
 
 var greenIcon = L.icon({ // green is for completed tests
-    iconUrl: "images/green-marker.png",
+    iconUrl: "images/Green_Marker_New.png",
     iconSize: [25, 50],
     iconAnchor: [12, 48],
     popupAnchor: [-25, -50],
@@ -39,7 +33,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(map);
 
 // The map search functionality (SEB)
-
 var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider(); // search provider
   L.esri.Geocoding.geosearch({
     providers: [

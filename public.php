@@ -34,10 +34,6 @@
         integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
         crossorigin=""></script>
 
-
-
-
-
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <?php include('connection.php'); ?>
@@ -49,15 +45,6 @@
                 <a href="index.php">
                     <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
                 </a>
-                <input class="form-control" type="text" placeholder="Search location" id="search">
-                <h5> Search Radius </h5>
-                <div class="container">
-                    <div class="box">
-                        <div id="value"></div>
-                    </div>
-                    <input type="range" min="0" max="100" value="50"
-                    class="slider" id="slider">
-                </div>
                 <div class="messages">
                     <?php include('errors.php'); ?>
                         <?php if (isset($_SESSION['flag-success'])) : ?>
@@ -77,45 +64,133 @@
                             </div>
   	                    <?php endif ?>
                 </div>
-                <a class="btn btn-primary" href="#" role="button" id="flag"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
-                <path fill-rule="evenodd" d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
-                </svg> Flag site </a>
-                <form action="connection.php" id="flag-form" method="post">
-                    <div class="form-group">
-                            <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter longitude">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="flag-description" name="flag-description" placeholder="Enter description">
-                    </div>
-                    <button type="submit" class="btn btn-primary" name="submit-flag"> Submit flag </button>
+                
+                <form class="get-location">
+                    <button type="submit" class="btn btn-primary" onclick="getLocation();"><a>Get your location</a></button>
                 </form>
-                <a class="btn btn-primary" href="#" role="button" id="report"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                </svg> Report issue </a>
-                <form action="connection.php" id="report-form" method="post">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="report-description" name="report-description" placeholder="Enter description">
+                <div class="submit-info">
+                    <a class="btn btn-primary" href="#" role="button" id="flag"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                    <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                    <path fill-rule="evenodd" d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+                    </svg> Flag site </a>
+                    <form action="connection.php" id="flag-form" method="post">
+                        <div class="form-group">
+                                <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter longitude">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="flag-description" name="flag-description" placeholder="Enter description">
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="submit-flag"> Submit flag </button>
+                    </form>
+                    <a class="btn btn-primary" href="#" role="button" id="report"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                    </svg> Report issue </a>
+                    <form action="connection.php" id="report-form" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="report-description" name="report-description" placeholder="Enter description">
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="submit-issue"> Submit issue </button>
+                    </form>
+                </div>
+                <div class="states-dropdown">
+                    <button class="dropbtn">Select Your State/Territory</button>
+                    <div class = "states">
+                        <button id="QLD" onclick="changeMapToQld();">Queensland</button>
+                        <button id="NSW" onclick="changeMapToNsw();">New South Wales</button>
+                        <button id="WA" onclick="changeMapToWa();">Western Australia</button>
+                        <button id="ACT" onclick="changeMapToAct();">Australian Capital Territory</button>
+                        <button id="NT" onclick="changeMapToNt();">Northern Territory</button>
+                        <button id="TAS" onclick="changeMapToTas();">Tasmania</button>
+                        <button id="VIC" onclick="changeMapToVic();">Victoria</button>
+                        <button id="SA" onclick="changeMapToSa();">South Australia</button>
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit-issue"> Submit issue </button>
-                </form>
-                <form>
-                    <input type = "button" onclick = "getLocation();" value = "Get Your Location"/>
-                </form>
+                </div>
             </div>
         </div>
         <div class="map" id="map_id">
     </div>
+    <!-- Hidden Table (Used to query data from)-->
+    <div class="water-table"> 
+                <table class="table table-condensed table-dark" id = "data-table-public">
+                    <tr>
+                        <th scope="col" onclick="sortTable(0)">Actions</th>
+                        <th scope="col" onclick="sortTable(1)">CheckID</th>
+                        <th scope="col" onclick="sortTable(2)">Latitude</th>
+                        <th scope="col" onclick="sortTable(3)">Longitude</th>
+                        <th scope="col" onclick="sortTable(4)">TestStatus</th>
+				        <th scope="col" onclick="sortTable(5)">Ranking</th>
+				        <th scope="col" onclick="sortTable(6)">Equipment</th>
+				        <th scope="col" onclick="sortTable(7)">RecentTest</th>
+				        <th scope="col" onclick="sortTable(8)">LastTest</th>
+				        <th scope="col" onclick="sortTable(9)">Request</th>
+			        	<th scope="col" onclick="sortTable(10)">RequestDate</th>
+                    </tr>
+                        
+                    <?php
+                        $conn = mysqli_connect("localhost", "gents", "truegents1", "water_quality");
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        $sql = "SELECT CheckID, Latitude, Longitude, TestStatus, Ranking, Equipment, RecentTest, LastTest, Request, RequestDate FROM Sites";
+                        $result = $conn->query($sql);
+                    
+                        if ($result->num_rows > 0) {
+                        // output data of each row
+                            while($row = $result->fetch_assoc()) {
+                                $report_id = $row["CheckID"];
+                                echo "<tr class='table-row'>  
+                                        <td id= 'button-container'><button id='action-button' onclick='addressQuality($report_id)'>Actions</button></td>
+                                        <td id= " . $row["CheckID"]. ">" . $row["CheckID"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">" . $row["Latitude"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">" . $row["Longitude"] . "</td>
+                                        <td id= " . $row["CheckID"]. ">" . $row["TestStatus"] . "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["Ranking"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["Equipment"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["RecentTest"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["LastTest"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["Request"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["RequestDate"]. "</td>
+                                    </tr>";
+                            }
+                            echo "</table>";
+                        } else { 
+                            echo "0 results"; 
+                        }
+                        $conn->close();
+                    ?>
+                </table>
+            </div>
 
     </body>
     <script>
 
-        // Written by Seb
+        var redIcon = L.icon({ // red is for unsafe sites
+            iconUrl: "images/Red_Marker_New.png",
+            iconSize: [27, 50],
+            iconAnchor: [12, 48],
+            popupAnchor: [0, -40],
+            });
 
+        var orangeIcon = L.icon({ // orange is for safe for some activities
+            iconUrl: "images/Orange_Marker_New.png",
+            iconSize: [27, 50],
+            iconAnchor: [12, 48],
+            popupAnchor: [0, -40],
+            });
+
+        var greenIcon = L.icon({ // green is safe for all activities
+            iconUrl: "images/Green_Marker_New.png",
+            iconSize: [27, 50],
+            iconAnchor: [12, 48],
+            popupAnchor: [0, -40],
+            });
+
+        // Written by Seb
         // The default map is set to be a view of all of Australia
         let map = L.map('map_id').setView([-25.495375, 133.718096], 5);
     	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -126,6 +201,70 @@
     	zoomOffset: -1,
     	accessToken: 'pk.eyJ1Ijoicy1uYXJsbyIsImEiOiJja2Vod3F3Z3UwZXN6MnJvaHNneWhyNWRoIn0.Bix4XksIzlP276mM3_Bd0g'
         }).addTo(map);
+
+        // Updates the map to show the users current location. 
+        function showLocation(position) {
+            let lat = position.coords.latitude;
+            let long = position.coords.longitude;
+            map.setView([lat, long], 13);
+        }
+
+        //Location changing for states 
+        function changeMapToVic() {
+            let lat = -36.456;
+            let long = 144.2395;
+            let zoom = 7;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToQld() {
+            let lat = -27.56;
+            let long = 149.86;
+            let zoom = 6;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToNsw() {
+            let lat = -33.44;
+            let long = 147.97;
+            let zoom = 7;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToNt() {
+            let lat = -19.43;
+            let long = 134.54;
+            let zoom = 6;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToWa() {
+            let lat = -25.89;
+            let long = 121.311;
+            let zoom = 6;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToSa() {
+            let lat = -31.68143;
+            let long = 136.79077;
+            let zoom = 6;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToAct() {
+            let lat = -35.51;
+            let long = 149.08;
+            let zoom = 10;
+            map.setView([lat, long], zoom);
+        }
+
+        function changeMapToTas() {
+            let lat = -42.44;
+            let long = 146.61;
+            let zoom = 7;
+            map.setView([lat, long], zoom);
+        }
    
         //Search functionality (Seb)
         var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider(); // search provider
@@ -133,13 +272,64 @@
         providers: arcgisOnline,
         }).addTo(map);
 
-        // Updates the map to show the users current location. 
-        function showLocation(position) {
-            let lat = position.coords.latitude;
-            let long = position.coords.longitude;
-            
-            map.setView([lat, long], 13);
+        // Convert Table to JSON object
+        var tableToObj = function(table) {
+            var rows = table.rows,
+            row_length = rows.length,
+            i = 0,
+            j = 0,
+            keys = [],
+            obj, list = [];
+            for (; i < row_length; i++) {
+                if (i == 0) {
+                for (; j < rows[i].children.length; j++) {
+                    keys.push(rows[i].children[j].innerHTML);
+                }
+            } else {
+                obj = {};
+                for (j = 0; j < rows[i].children.length; j++) {
+                    obj[keys[j]] = rows[i].children[j].innerHTML;
+                    }
+                    list.push(obj);
+                }
+            }
+            return list;
+        };
+
+        function getTableLength(table) {
+            var rows = table.rows,
+            row_length = rows.length
+            return row_length;
         }
+
+        function addMarkers() {
+            let tableLength = getTableLength(document.getElementById('data-table-public')); 
+            let tableContents = tableToObj(document.getElementById('data-table-public'));
+
+            for (let i = 0; i < tableLength - 1; i++) {
+                var lat = tableContents[i].Latitude; // the longitude
+                var long = tableContents[i].Longitude; // the latitude
+                var status = tableContents[i].TestStatus; // the test status
+                var ranking = tableContents[i].Ranking;  
+                var checkID = tableContents[i].CheckId;
+                if (status == 2 && ranking == 0) {
+                    var badMarker = new L.marker([lat, long], {icon: redIcon}).addTo(map);
+                    badMarker.bindPopup("This site is unsafe");
+                } else if (status == 2 && ranking == 1) {
+                    var avgMarker = new L.marker([lat, long], {icon: orangeIcon}).addTo(map);
+                    avgMarker.bindPopup("This site should be treated with caution");
+                } else if (status == 2 && ranking == 2) {
+                    var goodMarker = new L.marker([lat, long], {icon: greenIcon}).addTo(map);
+                    goodMarker.bindPopup("This site is safe!");
+                    goodMarker.id = checkId;
+
+                }
+            }   
+        }
+        //loads the markers
+        addMarkers();
+
+
 
         // Handles errors with geolocation
         function errorHandler(err) {
@@ -163,19 +353,10 @@
 
         function onMapClick(e) {
             var marker = new L.marker(e.latlng).addTo(map);
-            marker.bindPopup("You've flagged this location").openPopup();
+            marker.bindPopup("You've flagged this location<br>" + "Latitude: " + e.latlng.lat +
+                            "<br>Longitude: " + e.latlng.lng).openPopup();
         }
         map.on('click', onMapClick);
-
-    </script>
-    <script type="text/javascript">
-        var slider=document.getElementById("slider");
-        var val=document.getElementById("value");
-
-        val.innerHTML=slider.value;
-        slider.oninput=function(){
-            val.innerHTML=this.value;
-        }
 
     </script>
     <script>
