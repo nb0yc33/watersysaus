@@ -22,12 +22,11 @@
   .sidebar {
     width: 30%;
     height: 100%;
-    background-color: #fcfcfc;
+    background-color: white;
     transition: 1s ease;
     position: relative;
   }
-  .map,
-  .main {
+  .map {
     width: 70%;
     height: 100%;
     background-color: #ccc;
@@ -80,7 +79,7 @@
   .sidebar {
     width: 100%;
     height: 36%;
-    background-color: lightblue;
+    background-color: white;
     transition: 1s ease;
     position: relative;
     top: 0;
@@ -174,34 +173,6 @@
   margin-bottom: 2vh;
 }
 
-.slider {
-  width: 100%;
-  height: 0.5vh;
-  -webkit-appearance: none;
-  border-radius: 5px;
-  background-color: lightblue;
-  box-shadow: inset 0 3px 18px rgba(0, 0, 0, 0.6);
-  margin-bottom: 1em;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-  border-radius: 50%;
-  cursor: pointer;
-  outline: none;
-}
-
-.slider::-webkit-slider-thumb:hover {
-  box-shadow: 0 0 0 3px lightblue, 0 0 0 6px white;
-}
-
-.slider:active::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px lightblue, 0 0 0 6px white;
-}
-
 .box {
   display: flex;
   justify-content: center;
@@ -289,7 +260,7 @@
   border: 1px solid transparent;
   margin-bottom: 20px;
   width: 200px;
-  height: 50px;
+  height: 60px;
   border-radius: 0.25rem;
   margin: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
@@ -315,6 +286,8 @@ button {
   padding: 10px;
   text-decoration: none;
   display: block;
+  width: 100%;
+  border: none;
 }
 
 #data-table-public {
@@ -322,7 +295,7 @@ button {
 }
 
 /* Change color of dropdown links on hover */
-.states a:hover {
+.states button:hover {
   background-color: #ddd;
 }
 

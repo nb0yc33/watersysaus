@@ -6,6 +6,7 @@ session_start();
 //initialise username, email and errors array
 $username = "";
 $email    = "";
+$update = false;
 $errors = array(); 
 
 //connect to DB
@@ -60,6 +61,35 @@ if (isset($_POST['submit-issue'])) {
     
     header('location: index.php');
   }
+}
+
+if (isset($_GET['edit'])) {
+  $id = $_GET['edit'];
+  $update = true;
+  $user_check_query = "SELECT * FROM Sites WHERE CheckID=$id LIMIT 1";
+  $result = mysqli_query($db, $user_check_query);
+
+  if(count($result)==1) {
+    $row = $result->fetch_array();
+    $teststatus = $row['TestStatus'];
+    $testranking = $row['Ranking'];
+    $equipment = $row['Equipment'];
+  }
+
+}
+
+if(isset($_POST['submit-gov'])) {
+  $id = $_POST['id'];
+  $teststatus = $_POST['test-status'];
+  $testranking = $_POST['water-ranking'];
+  $equipment = $_POST['equipment'];
+
+  $edit_query = "UPDATE Sites SET TestStatus='$teststatus', Ranking='$testranking',
+  Equipment='$equipment' WHERE CheckID=$id";
+  mysqli_query($db, $edit_query);
+
+  $_SESSION['message'] = "Record has been saved";
+  header('location: account.php');
 }
 
 //government user attempts to create account

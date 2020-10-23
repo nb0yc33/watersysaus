@@ -64,7 +64,6 @@
                             </div>
   	                    <?php endif ?>
                 </div>
-                
                 <form class="get-location">
                     <button type="submit" class="btn btn-primary" onclick="getLocation();"><a>Get your location</a></button>
                 </form>
@@ -76,7 +75,7 @@
                     </svg> Flag site </a>
                     <form action="connection.php" id="flag-form" method="post">
                         <div class="form-group">
-                                <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude">
+                            <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter latitude">
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter longitude">
@@ -97,7 +96,7 @@
                     </form>
                 </div>
                 <div class="states-dropdown">
-                    <button class="dropbtn">Select Your State/Territory</button>
+                    <button class="dropbtn">Select your state/territory</button>
                     <div class = "states">
                         <button id="QLD" onclick="changeMapToQld();">Queensland</button>
                         <button id="NSW" onclick="changeMapToNsw();">New South Wales</button>
@@ -311,24 +310,24 @@
                 var long = tableContents[i].Longitude; // the latitude
                 var status = tableContents[i].TestStatus; // the test status
                 var ranking = tableContents[i].Ranking;  
-                var checkID = tableContents[i].CheckId;
+                var checkID = tableContents[i].CheckID;
                 if (status == 2 && ranking == 0) {
                     var badMarker = new L.marker([lat, long], {icon: redIcon}).addTo(map);
                     badMarker.bindPopup("This site is unsafe");
+                    badMarker.id = checkID;
                 } else if (status == 2 && ranking == 1) {
                     var avgMarker = new L.marker([lat, long], {icon: orangeIcon}).addTo(map);
                     avgMarker.bindPopup("This site should be treated with caution");
+                    avgMarker.id = checkID;
                 } else if (status == 2 && ranking == 2) {
                     var goodMarker = new L.marker([lat, long], {icon: greenIcon}).addTo(map);
                     goodMarker.bindPopup("This site is safe!");
-                    goodMarker.id = checkId;
-
+                    goodMarker.id = checkID;
                 }
             }   
         }
         //loads the markers
         addMarkers();
-
 
 
         // Handles errors with geolocation

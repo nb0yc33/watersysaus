@@ -59,7 +59,32 @@
 			            <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>&nbsp;
 			            <p><a href="account.php?logout='1'" style="color: red;">Logout</a></p>
                     <?php endif ?>
-                </div>                                        
+                </div>
+                <?php require_once 'connection.php'; ?>
+
+                <?php
+                if (isset($_SESSION['message'])){
+                    echo $_SESSION['message'];
+                }
+                ?>
+                <div class="address-quality">
+                    <form action="connection.php" id="gov-form" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $row["CheckID"]; ?>">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="test-status"
+                             placeholder="Enter test status" value="<?php echo $teststatus; ?>">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="water-ranking"
+                             placeholder="Enter water ranking" value="<?php echo $testranking; ?>">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="equipment"
+                             placeholder="Enter equipment" value="<?php echo $equipment; ?>">
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="submit-gov">Submit water data</button>
+                    </form>      
+                </div>                                  
             </div>
         </div>
         <div class="main">
@@ -77,7 +102,7 @@
 				        <th scope="col" onclick="sortTable(7)">RecentTest</th>
 				        <th scope="col" onclick="sortTable(8)">LastTest</th>
 				        <th scope="col" onclick="sortTable(9)">Request</th>
-			        	<th scope="col" onclick="sortTable(10)">RequestDate</th>
+                        <th scope="col" onclick="sortTable(10)">RequestDate</th>
                     </tr>
                         
                     <?php
@@ -94,7 +119,7 @@
                             while($row = $result->fetch_assoc()) {
                                 $report_id = $row["CheckID"];
                                 echo "<tr class='table-row'>  
-                                        <td id= 'button-container'><button id='action-button' onclick='addressQuality($report_id)'>Actions</button></td>
+                                        <td><a href='account.php?edit=$report_id'>Edit</td>
                                         <td id= " . $row["CheckID"]. ">" . $row["CheckID"]. "</td>
                                         <td id= " . $row["CheckID"]. ">" . $row["Latitude"]. "</td>
                                         <td id= " . $row["CheckID"]. ">" . $row["Longitude"] . "</td>
