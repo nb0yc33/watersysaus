@@ -141,6 +141,14 @@
   font-size: 14px;
 }
 
+#gov-form {
+  display: none;
+  margin-top: 1em;
+  padding: 0.5em 2em 0.5em 2em;
+  border-radius: 5px;
+  border: 2px solid white;
+}
+
 #login-form,
 #report-form,
 #flag-form {

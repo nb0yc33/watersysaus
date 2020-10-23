@@ -74,6 +74,7 @@ if (isset($_GET['edit'])) {
     $teststatus = $row['TestStatus'];
     $testranking = $row['Ranking'];
     $equipment = $row['Equipment'];
+    $testdate = $row['TestDate'];
   }
 
 }
@@ -83,9 +84,10 @@ if(isset($_POST['submit-gov'])) {
   $teststatus = $_POST['test-status'];
   $testranking = $_POST['water-ranking'];
   $equipment = $_POST['equipment'];
+  $testdate = $_POST['test-date'];
 
   $edit_query = "UPDATE Sites SET TestStatus='$teststatus', Ranking='$testranking',
-  Equipment='$equipment' WHERE CheckID=$id";
+  Equipment='$equipment', TestDate='$testdate' WHERE CheckID=$id";
   mysqli_query($db, $edit_query);
 
   $_SESSION['message'] = "Record has been saved";

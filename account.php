@@ -82,6 +82,10 @@
                             <input type="text" class="form-control" name="equipment"
                              placeholder="Enter equipment" value="<?php echo $equipment; ?>">
                         </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="test-date"
+                             placeholder="Enter test date" value="<?php echo $testdate; ?>">
+                        </div>
                         <button type="submit" class="btn btn-primary" name="submit-gov">Submit water data</button>
                     </form>      
                 </div>                                  
@@ -99,10 +103,9 @@
                         <th scope="col" onclick="sortTable(4)">TestStatus</th>
 				        <th scope="col" onclick="sortTable(5)">Ranking</th>
 				        <th scope="col" onclick="sortTable(6)">Equipment</th>
-				        <th scope="col" onclick="sortTable(7)">RecentTest</th>
-				        <th scope="col" onclick="sortTable(8)">LastTest</th>
-				        <th scope="col" onclick="sortTable(9)">Request</th>
-                        <th scope="col" onclick="sortTable(10)">RequestDate</th>
+				        <th scope="col" onclick="sortTable(7)">TestDate</th>
+				        <th scope="col" onclick="sortTable(8)">Request</th>
+                        <th scope="col" onclick="sortTable(9)">RequestDate</th>
                     </tr>
                         
                     <?php
@@ -111,7 +114,7 @@
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT CheckID, Latitude, Longitude, TestStatus, Ranking, Equipment, RecentTest, LastTest, Request, RequestDate FROM Sites";
+                        $sql = "SELECT CheckID, Latitude, Longitude, TestStatus, Ranking, Equipment, TestDate, Request, RequestDate FROM Sites";
                         $result = $conn->query($sql);
                     
                         if ($result->num_rows > 0) {
@@ -119,15 +122,14 @@
                             while($row = $result->fetch_assoc()) {
                                 $report_id = $row["CheckID"];
                                 echo "<tr class='table-row'>  
-                                        <td><a href='account.php?edit=$report_id'>Edit</td>
+                                        <td><button id='edit'><a href='account.php?edit=$report_id'>Edit</a></button></td>
                                         <td id= " . $row["CheckID"]. ">" . $row["CheckID"]. "</td>
                                         <td id= " . $row["CheckID"]. ">" . $row["Latitude"]. "</td>
                                         <td id= " . $row["CheckID"]. ">" . $row["Longitude"] . "</td>
                                         <td id= " . $row["CheckID"]. ">" . $row["TestStatus"] . "</td>
                                         <td id= " . $row["CheckID"]. ">". $row["Ranking"]. "</td>
                                         <td id= " . $row["CheckID"]. ">". $row["Equipment"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["RecentTest"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["LastTest"]. "</td>
+                                        <td id= " . $row["CheckID"]. ">". $row["TestDate"]. "</td>
                                         <td id= " . $row["CheckID"]. ">". $row["Request"]. "</td>
                                         <td id= " . $row["CheckID"]. ">". $row["RequestDate"]. "</td>
                                     </tr>";
@@ -234,10 +236,6 @@
         //loads the markers
         addMarkers();
 
-        function addressQuality($report_id){
-
-        }
-
         // Sort tables alphabetical/ numerical
         function sortTable(n) {
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -285,5 +283,12 @@
             }
         }
 
+    </script>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('#edit').on('click', function(event) {        
+                jQuery('#gov-form').toggle('show');
+            });
+        });
     </script>
 </html>
