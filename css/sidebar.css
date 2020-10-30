@@ -12,24 +12,63 @@
   display: flex;
 }
 
-#logo {
-  margin-top: 0.75em;
-  margin-bottom: 1em;
-  margin-left: 5px;
-  width: 90%;
+.grid-container-2 {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
 }
-@media only screen and (max-width: 1440px) {
+
+@media only screen and (max-width: 2560px) {
+  .main-2 {
+    height: 100%;
+    width: 70%;
+  }
+
   .sidebar {
     width: 30%;
     height: 100%;
     background-color: white;
     transition: 1s ease;
     position: relative;
+    z-index: 1;
   }
+
+  .sidebar-2 {
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    transition: 1s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .main {
+    width: 70%;
+  }
+  .water-table-gov {
+    height: 40%;
+    width: 100%;
+    overflow: scroll;
+  }
+  .map-2 {
+    width: 100%;
+    height: 60%;
+  }
+
+  #logo {
+    margin-top: 0.75em;
+    margin-bottom: 0.1em;
+    margin-left: 30px;
+    width: 90%;
+  }
+
   .map {
+    position: relative;
     width: 70%;
     height: 100%;
     background-color: #ccc;
+    z-index: 0;
   }
 
   /*h5 {
@@ -50,10 +89,23 @@
     width: 100%;
   }
 
+  .address-quality {
+    width: 100%;
+  }
+
   #report-form {
     position: absolute;
     bottom: 60px;
     left: 20%;
+  }
+  #login-form,
+  #report-form,
+  #flag-form {
+    display: none;
+    margin-top: 1em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
   }
 
   #report {
@@ -70,12 +122,38 @@
   }
 }
 @media only screen and (max-width: 768px) {
+  .grid-container-2 {
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-2 {
+    height: 50%;
+    width: 100%;
+  }
+
+  .water-table-gov {
+    height: 45%;
+    width: 100%;
+    overflow: scroll;
+  }
+
+  .map-2 {
+    height: 55%;
+    width: 100%;
+  }
+
   .map {
     width: 100%;
-    height: 64%;
+    height: 53%;
     position: absolute;
     bottom: 0;
+    z-index: 0;
   }
+
   .sidebar {
     width: 100%;
     height: 36%;
@@ -83,10 +161,49 @@
     transition: 1s ease;
     position: relative;
     top: 0;
+    z-index: 1;
+  }
+
+  .sidebar-2 {
+    width: 100%;
+    height: 55%;
+    background-color: white;
+    transition: 1s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  #logo {
+    margin-top: 0.75em;
+    margin-bottom: 0.1em;
+    margin-left: 10px;
+    width: 96%;
+  }
+
+  .submit-info {
+    width: 60%;
   }
   /* .h5 {
         margin-bottom: -34.5px;
     }*/
+  #flag {
+    width: 60%;
+    position: relative;
+    color: white;
+    font-size: 14px;
+    right: 0;
+    top: 18%;
+  }
+  #login-form,
+  #report-form,
+  #flag-form {
+    position: initial;
+    display: none;
+    margin-top: 0.01em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
+  }
 
   .search {
     width: 80%;
@@ -99,35 +216,51 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 0.1%;
+    height: 1%;
     margin-bottom: 0.05vw;
   }
 
   #report {
+    position: relative;
+    align-items: center;
     margin-top: 0.5vw;
     margin-bottom: 0.5vw;
-    width: 60%;
+    /* width: 70%; */
+    bottom: auto;
+    left: auto;
     font-size: 14px;
   }
 }
 
-.map-2 {
+@media only screen and (max-width: 640px) {
+  * {
+    font-size: 10px;
+  }
+}
+/*.sidebar-2 {
+  width: 100%;
   height: 50%;
+  background-color: white;
+  transition: 1s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.main-2 {
+  height: 100%;
   width: 100%;
 }
 
-.water-table {
-  height: 50%;
+.map-2 {
+  height: 25%;
   width: 100%;
-  overflow: scroll;
-  display: none;
 }
 
 .water-table-gov {
-  height: 50%;
+  height: 25%;
   width: 100%;
   overflow: scroll;
-}
+}*/
 
 #background {
   width: 70%;
@@ -142,17 +275,6 @@
 }
 
 #gov-form {
-  display: none;
-  margin-top: 1em;
-  padding: 0.5em 2em 0.5em 2em;
-  border-radius: 5px;
-  border: 2px solid white;
-}
-
-#login-form,
-#report-form,
-#flag-form {
-  display: none;
   margin-top: 1em;
   padding: 0.5em 2em 0.5em 2em;
   border-radius: 5px;
@@ -172,6 +294,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 1;
 }
 
 #search,
@@ -220,31 +343,76 @@
   width: 80%;
   margin: 0px auto;
   padding: 1%;
-  border: 1px solid green;
+  border: 1px solid turquoise;
   font-size: 10px;
-  color: green;
-  background: #f2dede;
+  background: aliceblue;
   border-radius: 3px;
   text-align: center;
 }
 
-.waves {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  margin-bottom: 0;
-  padding: 0;
-  z-index: -1;
-  height: 100vh;
-  width: 100vw;
+.site-info {
+  position: absolute;
+  left: 5%;
+  width: 90%;
+  height: 70%;
+  border-radius: 10px;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.18);
+  background: #f2f2f2;
 }
 
-.waves-bottom {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 20%;
+.info {
+  position: relative;
+  top: 3%;
+  left: 3%;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: inherit;
+  z-index: 1;
+}
+
+.close-img:hover {
+  cursor: alias;
+}
+
+.site-form-headings {
+  margin-top: 10px;
+  color: #007bff;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#close-form {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+}
+
+.status-div {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+.info-img {
+  width: 15px;
+  height: 15px;
+  margin-left: 15px;
+}
+
+.info-img:hover {
+  cursor: help;
+}
+
+.info-message {
+  position: absolute;
+  left: 30%;
+  top: 55%;
+  max-width: 200px;
+  text-align: center;
 }
 
 #action-button {
@@ -272,6 +440,12 @@
   border-radius: 0.25rem;
   margin: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+#submission-submit,
+#submission-report {
+  background-color: "#34cacb";
 }
 
 .states-dropdown {
@@ -296,6 +470,17 @@ button {
   display: block;
   width: 100%;
   border: none;
+}
+
+/*popup buttons*/
+.popup-btns {
+  display: flex;
+  flex-direction: rows;
+}
+
+.popup-yes,
+.popup-no {
+  margin: 0.5em;
 }
 
 #data-table-public {

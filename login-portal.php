@@ -20,7 +20,7 @@
         <div class="sidebar">
             <div class="button-box">
                 <a href="index.php">
-                    <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
+                    <img src="images/logo.svg" id="logo" alt="Water Systems Australia Logo">
                 </a>
                 <div class="messages">
                 <?php include('errors.php'); ?>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="log-in-password">
                             <p>Password</p>
-                            <input type="text" name="password">
+                            <input type="PASSWORD" name="password">
                         </div><br>
                         <button type="submit" class="btn btn-info" name="login">Login</button>
                     </form><br><br> 

@@ -1,4 +1,6 @@
 <?php 
+
+  // Start user account session and respond accordingly to user actions
   session_start(); 
 
   if (!isset($_SESSION['username'])) {
@@ -47,19 +49,22 @@
         <?php include('connection.php'); ?>
     </head>
     <body>  
-    <div class="grid-container">
-        <div class="sidebar">
+    <!-- Establish account page layout -->
+    <div class="grid-container-2">
+        <div class="sidebar-2">
             <div class="button-box">
                 <a href="index.php">
                     <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
                 </a>
                 <div class="messages">
+                <!-- Include errors and the ability for user to logout -->
                 <?php include('errors.php'); ?>
                     <?php  if (isset($_SESSION['username'])) : ?>
 			            <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>&nbsp;
 			            <p><a href="account.php?logout='1'" style="color: red;">Logout</a></p>
                     <?php endif ?>
                 </div>
+                <!-- Require connection php file for echoing session message -->
                 <?php require_once 'connection.php'; ?>
 
                 <?php
@@ -67,80 +72,83 @@
                     echo $_SESSION['message'];
                 }
                 ?>
+                <!-- Input section for government officials to resolve requests. This is done dynamically. -->
                 <div class="address-quality">
-                    <form action="connection.php" id="gov-form" method="POST">
-                        <input type="hidden" name="id" value="<?php echo $row["CheckID"]; ?>">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="test-status"
-                             placeholder="Enter test status" value="<?php echo $teststatus; ?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="water-ranking"
-                             placeholder="Enter water ranking" value="<?php echo $testranking; ?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="equipment"
-                             placeholder="Enter equipment" value="<?php echo $equipment; ?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="test-date"
-                             placeholder="Enter test date" value="<?php echo $testdate; ?>">
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="submit-gov">Submit water data</button>
-                    </form>      
+                <form action="connection.php" id="gov-form" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $row["CheckID"]; ?>">
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="check-id"
+                               placeholder="Enter ID" value="<?php echo $checkid; ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="test-status"
+                            placeholder="Enter test status" value="<?php echo $teststatus; ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="water-ranking"
+                            placeholder="Enter water ranking" value="<?php echo $testranking; ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="equipment"
+                            placeholder="Enter equipment" value="<?php echo $equipment; ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="test-date"
+                            placeholder="Enter test date" value="<?php echo $testdate; ?>">
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit-gov">Submit water data</button>
+                </form>      
                 </div>                                  
             </div>
         </div>
-        <div class="main">
+        <div class="main-2">
             <div class="map-2" id="mapid"></div>
+            <!-- Establishing sql connection and performing data retrieval for representation as table -->
+            <?php
+                $conn = new mysqli('localhost', 'gents', 'truegents1', 'water_quality') or die(mysqli_error($conn));
+                $sql = $conn->query("SELECT CheckID, Latitude, Longitude, TestStatus, Ranking, Equipment, TestDate, RequestDate FROM Sites") or die($conn->error);
+            ?>
             <div class="water-table-gov">
                 <table class="table table-condensed table-dark" id ="data-table">
-                    <tr>
-                        <th scope="col" onclick="sortTable(0)">Actions</th>
-                        <th scope="col" onclick="sortTable(1)">CheckID</th>
-                        <th scope="col" onclick="sortTable(2)">Latitude</th>
-                        <th scope="col" onclick="sortTable(3)">Longitude</th>
-                        <th scope="col" onclick="sortTable(4)">TestStatus</th>
-				        <th scope="col" onclick="sortTable(5)">Ranking</th>
-				        <th scope="col" onclick="sortTable(6)">Equipment</th>
-				        <th scope="col" onclick="sortTable(7)">TestDate</th>
-				        <th scope="col" onclick="sortTable(8)">Request</th>
-                        <th scope="col" onclick="sortTable(9)">RequestDate</th>
-                    </tr>
-                        
-                    <?php
-                        $conn = mysqli_connect("localhost", "gents", "truegents1", "water_quality");
-                        // Check connection
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        $sql = "SELECT CheckID, Latitude, Longitude, TestStatus, Ranking, Equipment, TestDate, Request, RequestDate FROM Sites";
-                        $result = $conn->query($sql);
-                    
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                            while($row = $result->fetch_assoc()) {
-                                $report_id = $row["CheckID"];
-                                echo "<tr class='table-row'>  
-                                        <td><button id='edit'><a href='account.php?edit=$report_id'>Edit</a></button></td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["CheckID"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["Latitude"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["Longitude"] . "</td>
-                                        <td id= " . $row["CheckID"]. ">" . $row["TestStatus"] . "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["Ranking"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["Equipment"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["TestDate"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["Request"]. "</td>
-                                        <td id= " . $row["CheckID"]. ">". $row["RequestDate"]. "</td>
-                                    </tr>";
-                            }
-                            echo "</table>";
-                        } else { 
-                            echo "0 results"; 
-                        }
-                        $conn->close();
-                    ?>
+                    <thead>
+                        <tr>
+                            <!-- Headings for request data table -->
+                            <th scope="col" onclick="sortTable(0)">Actions</th>
+                            <th scope="col" onclick="sortTable(1)">CheckID</th>
+                            <th scope="col" onclick="sortTable(2)">Latitude</th>
+                            <th scope="col" onclick="sortTable(3)">Longitude</th>
+                            <th scope="col" onclick="sortTable(4)">TestStatus</th>
+                            <th scope="col" onclick="sortTable(5)">Ranking</th>
+                            <th scope="col" onclick="sortTable(6)">Equipment</th>
+                            <th scope="col" onclick="sortTable(7)">TestDate</th>
+                            <th scope="col" onclick="sortTable(8)">RequestDate</th>
+                        </tr>
+                    </thead>
+                    <?php 
+                        // Each row from the Sites table is returned in the form of a table
+                        while ($row = $sql->fetch_assoc()): ?>
+                            <tr id=<?php echo $row['CheckID']; ?>>
+                                <!-- Edit button enables government official to address water quality request -->
+                                <td><a href="account.php?edit=<?php echo $row['CheckID']; ?>" class="btn btn-info">Edit</a></td>
+                                <td><?php echo $row['CheckID']; ?></td>
+                                <td><?php echo $row['Latitude']; ?></td>
+                                <td><?php echo $row['Longitude']; ?></td>
+                                <td><?php echo $row['TestStatus']; ?></td>
+                                <td><?php echo $row['Ranking']; ?></td>
+                                <td><?php echo $row['Equipment']; ?></td>
+                                <td><?php echo $row['TestDate']; ?></td>
+                                <td><?php echo $row['RequestDate']; ?></td>
+                            </tr>
+                        <?php endwhile; ?>
                 </table>
+                <!-- Print array -->
+                <?php
+                function pre_r($array) {
+                    echo '<pre>';
+                    print_r($array);
+                    echo '</pre>';
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -151,23 +159,24 @@
             iconUrl: "images/Red_Marker_New.png",
             iconSize: [27, 50],
             iconAnchor: [12, 48],
-            popupAnchor: [-25, -50],
+            popupAnchor: [0, -40],
             });
 
         var orangeIcon = L.icon({ // orange is for pending tests
             iconUrl: "images/Orange_Marker_New.png",
             iconSize: [27, 50],
             iconAnchor: [12, 48],
-            popupAnchor: [-25, -50],
+            popupAnchor: [0, -40],
             });
 
         var greenIcon = L.icon({ // green is for completed tests
             iconUrl: "images/Green_Marker_New.png",
             iconSize: [27, 50],
             iconAnchor: [12, 48],
-            popupAnchor: [-25, -50],
+            popupAnchor: [0, -40],
             });
 
+        // Establish Leaflet map
         let map = L.map('mapid').setView([-27.47, 153.02], 10);
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -210,12 +219,14 @@
             return list;
         };
 
+        // Getting the table lenght
         function getTableLength(table) {
             var rows = table.rows,
             row_length = rows.length
             return row_length;
         }
 
+        // Adding markers to the map
         function addMarkers() {
             let tableLength = getTableLength(document.getElementById('data-table')); 
             let tableContents = tableToObj(document.getElementById('data-table'));
@@ -224,18 +235,47 @@
                 var lat = tableContents[i].Latitude; // the longitude
                 var long = tableContents[i].Longitude; // the latitude
                 var status = tableContents[i].TestStatus; // the test status  
-                if (status == 0) {
-                    L.marker([lat, long], {icon: redIcon}).addTo(map);
-                } else if (status == 1) {
-                    L.marker([lat, long], {icon: orangeIcon}).addTo(map);
-                } else {
-                    L.marker([lat, long], {icon: greenIcon}).addTo(map);
+                var checkId = tableContents[i].CheckID;
+                var requestDate = tableContents[i].RequestDate;
+
+                if (status == 'Not Tested') {
+                    var marker = L.marker([lat, long], {icon: redIcon}).on('click', highlightTableRow).addTo(map);
+                    marker.id = checkId;
+                    marker.bindPopup("Location ID: " + checkId + "<br>Latitude: " + lat + "<br>Longitude: " + long
+                                    + "<br>Request Date: " + requestDate);
+                    marker.on('popupclose', unHighlightRow);
+                } else if (status == 'In Progress') {
+                    var marker = L.marker([lat, long], {icon: orangeIcon}).on('click', highlightTableRow).addTo(map);
+                    marker.id = checkId;
+                    marker.bindPopup("Location ID: " + checkId + "<br>Latitude: " + lat + "<br>Longitude: " + long
+                                    + "<br>Request Date: " + requestDate);
+                    marker.on('popupclose', unHighlightRow);
+                } else if (status == "Tested") {
+                    var marker = L.marker([lat, long], {icon: greenIcon}).on('click', highlightTableRow).addTo(map);
+                    marker.id = checkId;
+                    marker.bindPopup("Location ID: " + checkId + "<br>Latitude: " + lat + "<br>Longitude: " + long
+                                    + "<br>Request Date: " + requestDate);
+                    marker.on('popupclose', unHighlightRow);
                 }
             }   
         }
+
         //loads the markers
         addMarkers();
-
+        
+        // Highlight and scrolls to row on table where marker corresponds to
+        function highlightTableRow(e) {
+            tableRow = document.getElementById(e.target.id);
+            tableRow.style.backgroundColor = '#3e28d7';
+            tableRow.scrollIntoView();
+        } 
+        
+        //Unhighlights the table row
+        function unHighlightRow(e) {
+            tableRow = document.getElementById(e.target.id);
+            tableRow.style.backgroundColor = '#343a40';
+        }
+        
         // Sort tables alphabetical/ numerical
         function sortTable(n) {
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -282,13 +322,6 @@
                 }
             }
         }
+    </script>
 
-    </script>
-    <script>
-        jQuery(document).ready(function(){
-            jQuery('#edit').on('click', function(event) {        
-                jQuery('#gov-form').toggle('show');
-            });
-        });
-    </script>
 </html>

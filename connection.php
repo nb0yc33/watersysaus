@@ -30,17 +30,21 @@ if (isset($_POST['submit-flag'])) {
     array_push($errors, "Description of flagging is required"); 
   }
   
+  // ensure that no errors occur before proceeding
   if (count($errors) == 0) {
+    $status = "Not Tested";
+    $date = date('Y-m-d H:i:s');
 
-    $flag_query = "INSERT INTO Sites (Latitude, Longitude, Description) 
-            VALUES('$latitude', '$longitude', '$description')";
+    $flag_query = "INSERT INTO Sites (Latitude, Longitude, Description, TestStatus, RequestDate) 
+            VALUES('$latitude', '$longitude', '$description', '$status', '$date')";
     mysqli_query($db, $flag_query);
 
     $_SESSION['flag-success'] = "You have flagged a location successfully";
     
-    header('location: index.php');
+    header('location: public.php');
   }
 }
+
 
 //public chooses to report issue
 if (isset($_POST['submit-issue'])) {
@@ -63,14 +67,15 @@ if (isset($_POST['submit-issue'])) {
   }
 }
 
+//gov user chooses to resolve water quality request
 if (isset($_GET['edit'])) {
   $id = $_GET['edit'];
-  $update = true;
   $user_check_query = "SELECT * FROM Sites WHERE CheckID=$id LIMIT 1";
   $result = mysqli_query($db, $user_check_query);
 
   if(count($result)==1) {
     $row = $result->fetch_array();
+    $checkid = $row['CheckID'];
     $teststatus = $row['TestStatus'];
     $testranking = $row['Ranking'];
     $equipment = $row['Equipment'];
@@ -79,14 +84,16 @@ if (isset($_GET['edit'])) {
 
 }
 
+//government user can resolve water request
 if(isset($_POST['submit-gov'])) {
   $id = $_POST['id'];
+  $checkid = $_POST['check-id'];
   $teststatus = $_POST['test-status'];
   $testranking = $_POST['water-ranking'];
   $equipment = $_POST['equipment'];
   $testdate = $_POST['test-date'];
 
-  $edit_query = "UPDATE Sites SET TestStatus='$teststatus', Ranking='$testranking',
+  $edit_query = "UPDATE Sites SET CheckID='$checkid', TestStatus='$teststatus', Ranking='$testranking',
   Equipment='$equipment', TestDate='$testdate' WHERE CheckID=$id";
   mysqli_query($db, $edit_query);
 
@@ -152,7 +159,7 @@ if (isset($_POST['create'])) {
     //establish username in session
     $_SESSION['username'] = $username;
     $_SESSION['confirmation'] = "You created an account successfully";
-    header('location: create-account.php');
+    header('location: login-portal.php');
   }
 }
 

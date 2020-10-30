@@ -3,7 +3,7 @@
     	<meta charset="UTF-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<title> Create Account </title>
-    	<link rel="stylesheet" href="css/sidebar.css">
+    	<link rel="stylesheet" href="css/login-portal.css">
     	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
      	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
          crossorigin=""/>
@@ -20,7 +20,7 @@
         <div class="sidebar">
             <div class="button-box">
                 <a href="index.php">
-                    <img src="images/logo.png" id="logo" alt="Water Systems Australia Logo">
+                    <img src="images/logo.svg" id="logo" alt="Water Systems Australia Logo">
                 </a>
                 <div class="messages">
                 <?php include('errors.php'); ?>
@@ -40,11 +40,11 @@
                         </div>
                         <div class="log-in-password">
                             <p>Password</p>
-                            <input type="text" name="password-1" id="password">
+                            <input type="PASSWORD" name="password-1" id="password">
                         </div>
                         <div class="log-in-password-2">
                             <p>Confirm password</p>
-                            <input type="text" name="password-2" id="password">
+                            <input type="PASSWORD" name="password-2" id="password">
                         </div><br><br>                    
                         <div class="log-in-branch">
                             <p>Government Branch</p>
@@ -58,7 +58,7 @@
                             <p>Suburb/Region</p>
                             <input type="text" name="suburb" id="suburb">
                         </div><br>                                                      
-                        <button type="submit" class="btn btn-info" name="create">Create account</button>
+                        <button type="submit" href="/login-portal.php"class="btn btn-info" name="create">Create account</button>
                     </form>
                 </div>
             </div>                                           

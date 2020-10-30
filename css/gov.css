@@ -1,8 +1,55 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+
+@media only screen and (max-width: 768px) {
+    .map-2 {
+            position: absolute;
+            top: 12%;
+            height: 50%;
+            width: 100%;
+        }
+    .sidebar {
+            width: 100%;
+            height: 10%;
+            background-color: white;
+            transition: 1s ease;
+            position: absolute;
+            top: 0;
+        }
+    .water-table-gov {
+        height: 50%;
+        width: 100%;
+        overflow: scroll;
+        position: absolute;
+        bottom: 0;
+    }
 }
+@media only screen and (max-width: 2560px) {
+    .sidebar {
+        width: 100%;
+        height: 10%;
+        background-color: white;
+        transition: 1s ease;
+        position: absolute;
+        top: 0;
+    }
+
+    .main{
+        width:100%
+    }
+
+    .water-table-gov {
+        height: 50%;
+        width: 100%;
+        overflow: scroll;
+        position: absolute;
+        bottom: 0;
+}
+    .map-2{
+        position: absolute;
+        top: 12%;
+        height: 50%;
+        width: 100%;}
+}
+
 
 .logo-img {
     position: relative;
@@ -205,5 +252,240 @@ span {
 
 
 }
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+
+.grid-container {
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+}
+
+#logo {
+    margin-top: 0.75em;
+    margin-bottom: 1em;
+    margin-left: 5px;
+    width: 90%;
+}
+
+button {
+    background-color: teal;
+}
+
+.map-2 {
+    height: 50%;
+    width: 100%;
+}
+
+.water-table {
+    height: 50%;
+    width: 100%;
+    overflow: scroll;
+    display: none;
+}
+
+.water-table-gov {
+    height: 50%;
+    width: 100%;
+    overflow: scroll;
+}
+
+#background {
+    width: 70%;
+    height: 100%;
+    background-color: white;
+}
+
+#flag {
+    width: 50%;
+    color: white;
+    font-size: 14px;
+}
+
+#gov-form {
+    display: none;
+    margin-top: 1em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+#login-form,
+#report-form,
+#flag-form {
+    display: none;
+    margin-top: 1em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+#create-form {
+    margin-top: 1em;
+    padding: 0.5em 2em 0.5em 2em;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.button-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#search,
+#search-gov {
+    width: 80%;
+    margin-left: 0.5vw;
+    margin-bottom: 2vh;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkblue;
+    height: 30px;
+    width: 30px;
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(-135deg);
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 22%;
+}
+
+#value {
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    transform: rotate(135deg);
+}
+
+.error {
+    width: 90%;
+    margin: 0px auto;
+    padding: 1%;
+    border: 1px solid #a94442;
+    font-size: 10px;
+    color: #a94442;
+    background: #f2dede;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.success {
+    width: 80%;
+    margin: 0px auto;
+    padding: 1%;
+    border: 1px solid green;
+    font-size: 10px;
+    color: green;
+    background: #f2dede;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.waves {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    padding: 0;
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
+}
+
+.waves-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 20%;
+    width: 100%;
+}
+
+#action-button {
+    background-color: turquoise;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.infoForm {
+    width: 100px;
+    height: 120px;
+    background-color: #ccc;
+}
+
+.dropbtn {
+    background-color: #007bff;
+    color: white;
+    font-size: 14px;
+    border: 1px solid transparent;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 60px;
+    border-radius: 0.25rem;
+    margin: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
+}
+
+.states-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.states {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 135px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+.states a,
+button {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    border: none;
+}
+
+#data-table-public {
+    display: none;
+}
+
+/* Change color of dropdown links on hover */
+.states button:hover {
+    background-color: #ddd;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.states-dropdown:hover .states {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.states-dropdown:hover .dropbtn {
+    background-color: #006cd6;
+}
+
 
 
