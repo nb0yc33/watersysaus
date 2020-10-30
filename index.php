@@ -7,6 +7,7 @@
         <title>Index</title>
         <link href="css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css" />
         <style>
+<<<<<<< HEAD
 
             * {
                 overflow-x: hidden;
@@ -19,6 +20,8 @@
             .display-4 {
                 overflow-y: hidden;
             }
+=======
+>>>>>>> 72620cede7d21bb0fa140b098fd9923e96c0d3a3
             /* Pad the vision text */
             .vision {
                 padding-right: 100px;
@@ -65,7 +68,11 @@
     <body>
     <!-- Navbar with logo -->
     <nav class="navbar navbarlogo fixed-top navbar-expand-lg navbar-light bg-light">
+<<<<<<< HEAD
             <img src="images/logo.svg" width="449" height="48" alt="" />
+=======
+            <img src="img/logo.png" width="449" height="48" alt="" />
+>>>>>>> 72620cede7d21bb0fa140b098fd9923e96c0d3a3
             <ul class="navbar-nav mr-auto"></ul>
     </nav>
 
@@ -74,16 +81,26 @@
             <!-- Right button -->
             <div class="col-lg-6 no-padding shadow">
                 <!-- Link to map file -->
+<<<<<<< HEAD
                 <a href="public.php">
                     <img href="public.php" class="imgbutton" src="images/leftbutton.jpg" width="100%" height="100%" alt="" />
+=======
+                <a href="viewmap.php">
+                    <img href="public.php" class="imgbutton" src="img/leftbutton.jpg" width="100%" height="100%" alt="" />
+>>>>>>> 72620cede7d21bb0fa140b098fd9923e96c0d3a3
                     <div class="centered">View Map</div>
                 </a>
           </div>
             <!-- Left button -->
             <div class="col-lg-6 no-padding">
                 <!-- Link to gov page file -->
+<<<<<<< HEAD
                 <a href="login-portal.php">
                     <img href="login-portal.php" class="imgbutton" src="images/rightbutton.jpg" width="100%" height="100%" alt="" />
+=======
+                <a href="gov.php">
+                    <img href="login-portal.php" class="imgbutton" src="img/rightbutton.jpg" width="100%" height="100%" alt="" />
+>>>>>>> 72620cede7d21bb0fa140b098fd9923e96c0d3a3
                     <div class="centered">Government Login</div>
                 </a>
           </div>
@@ -91,7 +108,11 @@
         <!-- Our vision text -->
         <div class="jumbotron" style="background-color: #ffffff;">
             <!-- Large Heading -->
+<<<<<<< HEAD
             <h1><center>Our Vision</center></h1>
+=======
+            <h1 class="display-4"><center>Our Vision</center></h1>
+>>>>>>> 72620cede7d21bb0fa140b098fd9923e96c0d3a3
             <div class="vision lead">
                 <center>
                     Water Systems Australia aims to make it easier for the Australian public to have access to comprehensive water quality data. Additionally, we provide a intuitive management system that allows government officials to
@@ -102,7 +123,11 @@
 
         <!-- Footer Image -->
         <div id="ocean">
+<<<<<<< HEAD
             <img src="images/waves.png" width="100%" height="100%" alt="" />
+=======
+            <img src="img/waves.png" width="100%" height="100%" alt="" />
+>>>>>>> 72620cede7d21bb0fa140b098fd9923e96c0d3a3
         </div>
 
         <!-- Scripts -->
